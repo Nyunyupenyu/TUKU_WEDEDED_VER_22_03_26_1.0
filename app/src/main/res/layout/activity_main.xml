@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_racing" android:padding="20dp">
+
+    <LinearLayout android:id="@+id/header" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:gravity="center" android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_below="@id/header" android:layout_above="@+id/footer"
+        android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+        android:scrollbars="none">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button android:id="@+id/btnGoSpec" android:layout_width="match_parent" android:layout_height="70dp"
+                android:text="ENGINE SPEC" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGoRaceway" android:layout_width="match_parent" android:layout_height="70dp"
+                android:text="RACEWAY (GPS)" android:backgroundTint="@color/racing_red" android:textColor="@color/text_white" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGoDyno" android:layout_width="match_parent" android:layout_height="70dp"
+                android:text="DYNO-KW (G-FORCE)" android:backgroundTint="#FF5722" android:textColor="@color/text_white" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGoService" android:layout_width="match_parent" android:layout_height="70dp"
+                android:text="SERVICE LOG" android:backgroundTint="@color/racing_green" android:textColor="#000" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGoFuel" android:layout_width="match_parent" android:layout_height="70dp"
+                android:text="KONSUMSI BBM" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGoJJS" android:layout_width="match_parent" android:layout_height="70dp"
+                android:text="JJS MODE" android:backgroundTint="@color/racing_cyan" android:textColor="#000" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGoCredits" android:layout_width="match_parent" android:layout_height="70dp"
+                android:text="CREDITS" android:backgroundTint="@color/text_gray" android:textColor="@color/text_white"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/footer" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:gravity="center" android:orientation="vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="dev by Penyu 🐢" android:textColor="@color/racing_cyan" android:textSize="12sp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="© 2026 TUKU WEDEDED" android:textColor="@color/text_gray" android:textSize="10sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_racing" android:padding="20dp">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_above="@+id/navBottom">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:gravity="center_horizontal">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="CREDITS" android:textColor="@color/racing_yellow"
+                android:textSize="28sp" android:textStyle="bold" android:layout_marginBottom="30dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Developer" android:textColor="@color/racing_cyan" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Ludovic Abimanyu (Penyu)" android:textColor="@color/text_white" android:layout_marginBottom="15dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Mentor" android:textColor="@color/racing_cyan" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="I Gede Dyava (Dipa)" android:textColor="@color/text_white" android:layout_marginBottom="15dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Mekanik" android:textColor="@color/racing_cyan" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Rafi Syauqi (Cau)" android:textColor="@color/text_white" android:layout_marginBottom="15dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Content Creator" android:textColor="@color/racing_cyan" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Prasetya Wicaksana (Wicak)" android:textColor="@color/text_white" android:layout_marginBottom="15dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Support" android:textColor="@color/racing_cyan" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Alphonsius Rigel\nPrasetya Karunia\nNabil Kurniawan" android:textColor="@color/text_white"
+                android:gravity="center" android:layout_marginBottom="25dp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Aplikasi ini dibuat oleh sekumpulan anak muda yang hobi automotive dan ngopi, karena suka nongkrong di TUKU makanya dinamain TUKU WEDEDED, aplikasi ini tidak ada sangkut pautnya sama TUKU dari MAKA GROUP, nantinya aplikasi ini akan berubah nama."
+                android:textColor="@color/text_gray" android:textSize="12sp" android:gravity="center" android:lineSpacingExtra="2dp" android:padding="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/navBottom" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:background="#CC020617" android:padding="10dp">
+        <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="BACK" style="@style/Widget.MaterialComponents.Button.TextButton" android:textColor="@color/text_gray"/>
+        <Button android:id="@+id/btnHome" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="HOME PAGE" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:textStyle="bold"/>
+    </LinearLayout>
+</RelativeLayout>

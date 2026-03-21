@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_racing">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_above="@+id/navBottom" android:padding="20dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ENGINE SPECIFICATION" android:textColor="@color/racing_yellow" android:textStyle="bold" android:textSize="20sp"/>
+
+            <EditText android:id="@+id/etBore" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Bore (mm)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="numberDecimal" android:layout_marginTop="10dp"/>
+            <EditText android:id="@+id/etStroke" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Stroke (mm)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="numberDecimal"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Cylinder Count:" android:textColor="@color/text_gray" android:layout_marginTop="10dp"/>
+            <RadioGroup android:id="@+id/rgSilinder" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton android:id="@+id/cyl1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="1" android:textColor="@color/text_white" android:buttonTint="@color/racing_yellow" android:checked="true"/>
+                <RadioButton android:id="@+id/cyl2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="2" android:textColor="@color/text_white" android:buttonTint="@color/racing_yellow"/>
+                <RadioButton android:id="@+id/cyl3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="3" android:textColor="@color/text_white" android:buttonTint="@color/racing_yellow"/>
+                <RadioButton android:id="@+id/cyl4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="4" android:textColor="@color/text_white" android:buttonTint="@color/racing_yellow"/>
+            </RadioGroup>
+
+            <TextView android:id="@+id/tvHasilCC" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="0 CC" android:textColor="@color/racing_yellow" android:textSize="40sp" android:textStyle="bold" android:gravity="center" android:layout_marginTop="10dp"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/text_gray" android:layout_marginVertical="15dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="INJECTOR &amp; ECU" android:textColor="@color/racing_cyan" android:textStyle="bold"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <EditText android:id="@+id/etInjectorCC" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:hint="Injector CC" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:inputType="numberDecimal" android:backgroundTint="@color/text_gray"/>
+                <EditText android:id="@+id/etInjectorHole" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:hint="Holes" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:inputType="number" android:backgroundTint="@color/text_gray"/>
+            </LinearLayout>
+
+            <EditText android:id="@+id/etECU" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="ECU Name" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="text"/>
+            <EditText android:id="@+id/etMapping" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Mapping Name" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="text"/>
+            <EditText android:id="@+id/etNotes" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Notes" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:minLines="2" android:gravity="top" android:inputType="textMultiLine"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/text_gray" android:layout_marginVertical="15dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="STATIC COMPRESSION CALC" android:textColor="@color/racing_green" android:textStyle="bold"/>
+
+            <EditText android:id="@+id/etVolumeKubah" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Volume Kubah (cc)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:inputType="numberDecimal" android:backgroundTint="@color/text_gray"/>
+
+            <TextView android:id="@+id/tvHasilKompresi" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Kompresi: 0:1" android:textColor="@color/racing_green" android:textSize="24sp" android:textStyle="bold" android:gravity="center" android:layout_marginTop="10dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="20dp">
+                <Button android:id="@+id/btnSave" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="SAVE SPEC" android:backgroundTint="@color/racing_green" android:textColor="#000" android:layout_marginEnd="5dp"/>
+                <Button android:id="@+id/btnHistory" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/navBottom" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:background="#CC020617" android:padding="10dp">
+        <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="BACK" style="@style/Widget.MaterialComponents.Button.TextButton" android:textColor="@color/text_gray"/>
+        <Button android:id="@+id/btnHome" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="HOME PAGE" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:textStyle="bold"/>
+    </LinearLayout>
+</RelativeLayout>

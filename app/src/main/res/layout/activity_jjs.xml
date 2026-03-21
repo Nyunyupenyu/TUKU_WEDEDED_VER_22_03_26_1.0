@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_racing">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navBottom"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CALCULATOR BENSIN JJS"
+                android:textColor="@color/racing_yellow"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/etJarakJJS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Jarak Tempuh (KM)"
+                android:inputType="numberDecimal"
+                android:textColor="@color/text_white"
+                android:textColorHint="@color/text_gray"
+                android:backgroundTint="@color/text_gray"/>
+
+            <EditText
+                android:id="@+id/etKonsumsiBBM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Konsumsi BBM (Km/L)"
+                android:inputType="numberDecimal"
+                android:textColor="@color/text_white"
+                android:textColorHint="@color/text_gray"
+                android:backgroundTint="@color/text_gray"/>
+
+            <EditText
+                android:id="@+id/etHargaBensin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Harga Bensin per Liter"
+                android:inputType="number"
+                android:textColor="@color/text_white"
+                android:textColorHint="@color/text_gray"
+                android:backgroundTint="@color/text_gray"/>
+
+            <TextView
+                android:id="@+id/tvHasilJJS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estimasi Bensin: Rp 0"
+                android:textColor="@color/racing_yellow"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:gravity="center"/>
+
+            <!-- Parkir Feature -->
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/text_gray" android:layout_marginVertical="15dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ESTIMASI BIAYA PARKIR" android:textColor="@color/racing_cyan" android:textStyle="bold"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <EditText android:id="@+id/etParkirAwal" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:hint="Awal (Rp)" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+                <EditText android:id="@+id/etParkirPerJam" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:hint="Per Jam (Rp)" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+            </LinearLayout>
+            <EditText android:id="@+id/etDurasiParkir" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Total Durasi (Jam)" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+
+            <TextView android:id="@+id/tvHasilParkir" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Total Parkir: Rp 0" android:textColor="@color/racing_cyan" android:textSize="18sp" android:textStyle="bold" android:gravity="center"/>
+
+            <Button android:id="@+id/btnCaptureParkir" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="FOTO LOKASI PARKIR" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginTop="10dp"/>
+            <ImageView android:id="@+id/ivPhotoParkir" android:layout_width="match_parent" android:layout_height="200dp"
+                android:layout_marginTop="10dp" android:scaleType="centerCrop" android:visibility="gone" android:background="@color/card_surface"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/text_gray" android:layout_marginVertical="15dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="LOGGER BELANJA JJS" android:textColor="@color/racing_green" android:textStyle="bold"/>
+
+            <EditText android:id="@+id/etItemName" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Nama Barang/Makanan" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <EditText android:id="@+id/etItemQty" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:hint="Qty" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+                <EditText android:id="@+id/etItemPrice" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"
+                    android:hint="Harga Satuan" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+            </LinearLayout>
+
+            <Button android:id="@+id/btnAddItem" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="TAMBAH KE DAFTAR" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white"/>
+
+            <TextView android:id="@+id/tvListBelanja" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Daftar Belanja:" android:textColor="@color/text_white" android:layout_marginTop="10dp" android:padding="10dp" android:background="#1AFFFFFF"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="20dp">
+                <Button android:id="@+id/btnSave" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="SAVE JJS" android:backgroundTint="@color/racing_green" android:textColor="#000" android:layout_marginEnd="5dp"/>
+                <Button android:id="@+id/btnHistory" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/navBottom" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:background="#CC020617" android:padding="10dp">
+        <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="BACK" style="@style/Widget.MaterialComponents.Button.TextButton" android:textColor="@color/text_gray"/>
+        <Button android:id="@+id/btnHome" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="HOME PAGE" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:textStyle="bold"/>
+    </LinearLayout>
+</RelativeLayout>

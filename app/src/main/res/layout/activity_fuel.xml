@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_racing">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_above="@+id/navBottom" android:padding="20dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="KONSUMSI BBM (FULL TO FULL)" android:textColor="@color/racing_yellow" android:textStyle="bold" android:textSize="20sp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Catatan: Masukkan jarak yang ditempuh sejak isi bensin full terakhir. Isi kolom 'Bensin Terisi' dengan jumlah liter bensin yang baru saja diisi hingga full kembali (sebelumnya tangki juga harus dalam keadaan full tank dan diisi full tank lagi)."
+                android:textColor="@color/text_gray" android:textSize="12sp" android:layout_marginTop="10dp" android:lineSpacingExtra="2dp"/>
+
+            <EditText android:id="@+id/etDistance" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Jarak Tempuh (KM)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="numberDecimal" android:layout_marginTop="20dp"/>
+
+            <EditText android:id="@+id/etFuelAmount" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Bensin Terisi (Liter)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="numberDecimal" android:layout_marginTop="10dp"/>
+
+            <TextView android:id="@+id/tvResult" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="0.0 Km/L" android:textColor="@color/racing_yellow" android:textSize="40sp" android:textStyle="bold" android:gravity="center" android:layout_marginTop="20dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="20dp">
+                <Button android:id="@+id/btnSave" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="SAVE LOG" android:backgroundTint="@color/racing_green" android:textColor="#000" android:layout_marginEnd="5dp"/>
+                <Button android:id="@+id/btnHistory" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/navBottom" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:background="#CC020617" android:padding="10dp">
+        <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="BACK" style="@style/Widget.MaterialComponents.Button.TextButton" android:textColor="@color/text_gray"/>
+        <Button android:id="@+id/btnHome" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="HOME PAGE" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:textStyle="bold"/>
+    </LinearLayout>
+</RelativeLayout>

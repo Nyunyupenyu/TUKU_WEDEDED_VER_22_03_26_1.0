@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.tukuwededed">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="TUKU WEDEDED"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".SpecActivity" android:screenOrientation="portrait" />
+        <activity android:name=".RacewayActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ServiceActivity" android:screenOrientation="portrait" />
+        <activity android:name=".JjsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".FuelActivity" android:screenOrientation="portrait" />
+        <activity android:name=".DynoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".CreditsActivity" android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

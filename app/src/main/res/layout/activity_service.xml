@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_racing" android:padding="16dp">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="MAINTENANCE TRACKER" android:textColor="@color/racing_yellow" android:textStyle="bold" android:layout_marginBottom="15dp"/>
+
+        <EditText android:id="@+id/etLastOli" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="KM Ganti Oli Terakhir" android:inputType="number" android:textColor="#FFF" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+        <TextView android:id="@+id/tvEstimasiOli" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Estimasi: Ganti pada +3000km" android:textColor="@color/racing_cyan" android:layout_marginBottom="15dp"/>
+
+        <EditText android:id="@+id/etLastBusi" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tanggal Ganti Busi (dd/mm/yy)" android:textColor="#FFF" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+        <EditText android:id="@+id/etLastFilter" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tanggal Ganti Filter Oli" android:textColor="#FFF" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:layout_marginBottom="15dp"/>
+
+        <EditText android:id="@+id/etLastCleaner" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tanggal Injector Cleaner" android:textColor="#FFF" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray"/>
+        <TextView android:id="@+id/tvEstimasiCleaner" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Estimasi: Lakukan Cleaner 6 Bulan Sekali" android:textColor="@color/racing_cyan"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="20dp">
+            <Button android:id="@+id/btnSave" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:text="SAVE LOG" android:backgroundTint="@color/racing_green" android:textColor="#000" android:layout_marginEnd="5dp"/>
+            <Button android:id="@+id/btnHistory" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:text="HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <Button android:id="@+id/btnBack" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="KEMBALI" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:layout_marginTop="20dp"/>
+    </LinearLayout>
+</ScrollView>
