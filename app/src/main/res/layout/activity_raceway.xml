@@ -25,8 +25,22 @@
         <Button android:id="@+id/btnHistory" android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="VIEW RACE HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginTop="10dp"/>
 
-        <TextView android:id="@+id/tvLog" android:layout_width="match_parent" android:layout_height="match_parent"
+        <TextView android:id="@+id/tvLog" android:layout_width="match_parent" android:layout_height="150dp"
             android:layout_marginTop="10dp" android:background="#111" android:padding="10dp" android:textColor="@color/racing_green" android:fontFamily="monospace" android:text="> Logger Ready..."/>
+
+        <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Instrumen performa digital untuk mencatat metrik akselerasi secara presisi. Fitur ini secara otomatis merekam kecepatan (km/h), jarak, waktu tempuh, dan top speed. Dilengkapi dengan fitur Auto-Start (saat &gt;5km/h) dan sistem Checkpoint otomatis pada jarak 100m, 200m, 500m, dan 1km untuk analisis data teknis yang lebih mendalam."
+                    android:textColor="@color/text_gray" android:textSize="11sp" android:layout_marginTop="20dp" android:gravity="center" android:lineSpacingExtra="2dp"/>
+
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="20dp" android:gravity="center" android:orientation="horizontal">
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@mipmap/ic_launcher" android:alpha="0.6"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" dev by penyu" android:textColor="@color/text_gray" android:textSize="10sp" android:alpha="0.6"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
     <LinearLayout android:id="@+id/navBottom" android:layout_width="match_parent" android:layout_height="wrap_content"

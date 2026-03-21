@@ -16,6 +16,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class JjsActivity extends AppCompatActivity {
@@ -26,6 +28,7 @@ public class JjsActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 101;
     private static final int CAMERA_PERMISSION_CODE = 102;
     private SharedPreferences prefs;
+    private List<String> currentShoppingList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +39,20 @@ public class JjsActivity extends AppCompatActivity {
         initViews();
         loadLastData();
 
-        // 1. Logic Hitung Bensin Otomatis
-        TextWatcher bensinWatcher = new TextWatcher() {
+        TextWatcher autoSaveWatcher = new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { hitungBensin(); }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { 
+                hitungBensin(); hitungParkir(); autoSave();
+            }
             @Override public void afterTextChanged(Editable s) {}
         };
-        etJarakJJS.addTextChangedListener(bensinWatcher);
-        etKonsumsiBBM.addTextChangedListener(bensinWatcher);
-        etHargaBensin.addTextChangedListener(bensinWatcher);
+        etJarakJJS.addTextChangedListener(autoSaveWatcher);
+        etKonsumsiBBM.addTextChangedListener(autoSaveWatcher);
+        etHargaBensin.addTextChangedListener(autoSaveWatcher);
+        etParkirAwal.addTextChangedListener(autoSaveWatcher);
+        etParkirPerJam.addTextChangedListener(autoSaveWatcher);
+        etDurasiParkir.addTextChangedListener(autoSaveWatcher);
 
-        // 2. Logic Hitung Parkir
-        TextWatcher parkirWatcher = new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
-            @Override public void onTextChanged(CharSequence s, int i, int i1, int i2) { hitungParkir(); }
-            @Override public void afterTextChanged(Editable s) {}
-        };
-        etParkirAwal.addTextChangedListener(parkirWatcher);
-        etParkirPerJam.addTextChangedListener(parkirWatcher);
-        etDurasiParkir.addTextChangedListener(parkirWatcher);
-
-        // 3. Kamera Parkir dengan Permission Check & Query declaration
         findViewById(R.id.btnCaptureParkir).setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
@@ -65,26 +61,65 @@ public class JjsActivity extends AppCompatActivity {
             }
         });
 
-        // 4. Tambah List Belanja
         findViewById(R.id.btnAddItem).setOnClickListener(v -> {
             try {
                 String name = etItemName.getText().toString();
                 int qty = Integer.parseInt(etItemQty.getText().toString());
                 int price = Integer.parseInt(etItemPrice.getText().toString());
-                String entry = "\n• " + name + " x" + qty + " = Rp " + (qty * price);
-                tvListBelanja.append(entry);
+                String entry = name + " x" + qty + " = Rp " + (qty * price);
+                currentShoppingList.add(entry);
+                updateShoppingListView();
+                autoSave();
                 etItemName.setText(""); etItemQty.setText(""); etItemPrice.setText("");
             } catch (Exception e) {
                 Toast.makeText(this, "Isi data belanja dulu, Nyu!", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Save & History Buttons
+        tvListBelanja.setOnClickListener(v -> {
+            if (currentShoppingList.isEmpty()) return;
+            showRemoveItemDialog();
+        });
+
         findViewById(R.id.btnSave).setOnClickListener(v -> saveJjsToHistory());
         findViewById(R.id.btnHistory).setOnClickListener(v -> showJjsHistory());
-
-        // 5. Navigasi
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
+    }
+
+    private void autoSave() {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("jarak", etJarakJJS.getText().toString());
+        editor.putString("konsumsi", etKonsumsiBBM.getText().toString());
+        editor.putString("harga", etHargaBensin.getText().toString());
+        editor.putString("parkirAwal", etParkirAwal.getText().toString());
+        editor.putString("parkirPerJam", etParkirPerJam.getText().toString());
+        editor.putString("durasiParkir", etDurasiParkir.getText().toString());
+        
+        StringBuilder sb = new StringBuilder();
+        for (String s : currentShoppingList) sb.append(s).append(";");
+        editor.putString("temp_list", sb.toString());
+        editor.apply();
+    }
+
+    private void updateShoppingListView() {
+        StringBuilder sb = new StringBuilder("Daftar Belanja (Klik untuk hapus):");
+        for (String item : currentShoppingList) {
+            sb.append("\n• ").append(item);
+        }
+        tvListBelanja.setText(sb.toString());
+    }
+
+    private void showRemoveItemDialog() {
+        String[] items = currentShoppingList.toArray(new String[0]);
+        new AlertDialog.Builder(this)
+                .setTitle("Hapus Item Belanja")
+                .setItems(items, (dialog, which) -> {
+                    currentShoppingList.remove(which);
+                    updateShoppingListView();
+                    autoSave();
+                })
+                .setNegativeButton("Batal", null)
+                .show();
     }
 
     private void openCamera() {
@@ -92,7 +127,7 @@ public class JjsActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
         } else {
-            Toast.makeText(this, "Aplikasi Kamera tidak ditemukan. Cek permission atau install Kamera.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Aplikasi Kamera tidak ditemukan.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -145,23 +180,13 @@ public class JjsActivity extends AppCompatActivity {
     }
 
     private void saveJjsToHistory() {
-        SharedPreferences.Editor editor = prefs.edit();
-        // Save last input for reload
-        editor.putString("jarak", etJarakJJS.getText().toString());
-        editor.putString("konsumsi", etKonsumsiBBM.getText().toString());
-        editor.putString("harga", etHargaBensin.getText().toString());
-        editor.putString("parkirAwal", etParkirAwal.getText().toString());
-        editor.putString("parkirPerJam", etParkirPerJam.getText().toString());
-        editor.putString("durasiParkir", etDurasiParkir.getText().toString());
-
-        // Save session result to history string
         String history = prefs.getString("history", "");
-        String entry = String.format("\n• Bensin: %s | Parkir: %s | Belanja: %s", 
-                tvHasilJJS.getText().toString(), 
-                tvHasilParkir.getText().toString(),
-                tvListBelanja.getText().toString().replace("Daftar Belanja:", ""));
-        editor.putString("history", history + entry);
-        editor.apply();
+        StringBuilder sb = new StringBuilder();
+        for(String s : currentShoppingList) sb.append("\n   - ").append(s);
+        
+        String entry = String.format("\n• Session JJS: %s | Parkir: %s\n  Belanja: %s", 
+                tvHasilJJS.getText().toString(), tvHasilParkir.getText().toString(), sb.toString());
+        prefs.edit().putString("history", history + entry).apply();
         Toast.makeText(this, "JJS Activity Saved!", Toast.LENGTH_SHORT).show();
     }
 
@@ -180,16 +205,14 @@ public class JjsActivity extends AppCompatActivity {
         etParkirAwal.setText(prefs.getString("parkirAwal", ""));
         etParkirPerJam.setText(prefs.getString("parkirPerJam", ""));
         etDurasiParkir.setText(prefs.getString("durasiParkir", ""));
-        hitungBensin(); hitungParkir();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
-            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-            ivPhotoParkir.setImageBitmap(imageBitmap);
-            ivPhotoParkir.setVisibility(View.VISIBLE);
+        
+        String savedList = prefs.getString("temp_list", "");
+        if (!savedList.isEmpty()) {
+            String[] items = savedList.split(";");
+            for (String s : items) if(!s.isEmpty()) currentShoppingList.add(s);
+            updateShoppingListView();
         }
+        
+        hitungBensin(); hitungParkir();
     }
 }

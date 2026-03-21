@@ -1,8 +1,9 @@
 package com.example.tukuwededed;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,45 +24,63 @@ public class FuelActivity extends AppCompatActivity {
         etFuelAmount = findViewById(R.id.etFuelAmount);
         tvResult = findViewById(R.id.tvResult);
 
-        findViewById(R.id.btnSave).setOnClickListener(v -> saveFuelLog());
-        findViewById(R.id.btnHistory).setOnClickListener(v -> showHistory());
+        loadLastInput();
 
+        TextWatcher fuelWatcher = new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
+            @Override public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                hitungBbm();
+                autoSave();
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        };
+
+        etDistance.addTextChangedListener(fuelWatcher);
+        etFuelAmount.addTextChangedListener(fuelWatcher);
+
+        findViewById(R.id.btnSave).setOnClickListener(v -> saveToHistory());
+        findViewById(R.id.btnHistory).setOnClickListener(v -> showHistory());
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-        findViewById(R.id.btnHome).setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
+        findViewById(R.id.btnHome).setOnClickListener(v -> finish());
     }
 
-    private void saveFuelLog() {
+    private void autoSave() {
+        prefs.edit()
+            .putString("last_dist", etDistance.getText().toString())
+            .putString("last_fuel", etFuelAmount.getText().toString())
+            .apply();
+    }
+
+    private void hitungBbm() {
         try {
             double dist = Double.parseDouble(etDistance.getText().toString());
             double fuel = Double.parseDouble(etFuelAmount.getText().toString());
-            double res = dist / fuel;
-            
-            tvResult.setText(String.format(Locale.getDefault(), "%.1f Km/L", res));
+            if (fuel > 0) {
+                double res = dist / fuel;
+                tvResult.setText(String.format(Locale.getDefault(), "%.1f Km/L", res));
+            }
+        } catch (Exception e) { tvResult.setText("0.0 Km/L"); }
+    }
 
-            String history = prefs.getString("history", "");
-            String newEntry = String.format(Locale.getDefault(), "\n• %.1f km / %.1f L = %.1f Km/L", dist, fuel, res);
-            prefs.edit().putString("history", history + newEntry).apply();
-            
-            Toast.makeText(this, "Log Saved!", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(this, "Masukkan data yang valid!", Toast.LENGTH_SHORT).show();
-        }
+    private void saveToHistory() {
+        String history = prefs.getString("history", "");
+        String entry = String.format(Locale.getDefault(), "\n• %s Km | %s L | Efisiensi: %s", 
+                etDistance.getText().toString(), etFuelAmount.getText().toString(), tvResult.getText().toString());
+        prefs.edit().putString("history", history + entry).apply();
+        Toast.makeText(this, "Fuel Log Saved!", Toast.LENGTH_SHORT).show();
     }
 
     private void showHistory() {
-        String history = prefs.getString("history", "Belum ada history.");
-        new AlertDialog.Builder(this)
-                .setTitle("History Konsumsi BBM")
-                .setMessage(history)
+        String history = prefs.getString("history", "Belum ada history BBM.");
+        new AlertDialog.Builder(this).setTitle("History Konsumsi BBM").setMessage(history)
                 .setPositiveButton("OK", null)
-                .setNeutralButton("HAPUS", (dialog, which) -> {
-                    prefs.edit().remove("history").apply();
-                    Toast.makeText(this, "History dihapus", Toast.LENGTH_SHORT).show();
-                })
+                .setNeutralButton("CLEAR", (d, w) -> prefs.edit().remove("history").apply())
                 .show();
+    }
+
+    private void loadLastInput() {
+        etDistance.setText(prefs.getString("last_dist", ""));
+        etFuelAmount.setText(prefs.getString("last_fuel", ""));
+        hitungBbm();
     }
 }

@@ -16,6 +16,9 @@
                 android:text="0 KM/H" android:textColor="@color/racing_yellow" android:textSize="16sp" android:textStyle="bold" android:gravity="end"/>
         </LinearLayout>
 
+        <TextView android:id="@+id/tvGpsStatus" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="GPS Status: Searching..." android:textColor="@color/text_gray" android:textSize="12sp" android:gravity="center" android:layout_marginTop="5dp"/>
+
         <com.example.tukuwededed.DynoView
             android:id="@+id/dynoGraph"
             android:layout_width="match_parent"
@@ -24,7 +27,7 @@
             android:background="#1AFFFFFF"/>
 
         <TextView android:id="@+id/tvMaxPower" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="MAX ESTIMATED POWER: 0 KW" android:textColor="@color/racing_green" android:textSize="20sp" android:textStyle="bold" android:gravity="center" android:layout_marginTop="15dp"/>
+            android:text="MAX ESTIMATED POWER: 0 KW / 0 HP" android:textColor="@color/racing_green" android:textSize="20sp" android:textStyle="bold" android:gravity="center" android:layout_marginTop="15dp"/>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15dp">
             <Button android:id="@+id/btnStartDyno" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1" android:text="START RUN" android:backgroundTint="@color/racing_green" android:textColor="#000" android:layout_marginEnd="5dp"/>
@@ -34,6 +37,15 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
             <Button android:id="@+id/btnSaveDyno" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1" android:text="SAVE" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginEnd="5dp"/>
             <Button android:id="@+id/btnHistoryDyno" android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1" android:text="HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Instrumen estimasi output tenaga (Dyno) berbasis integrasi sensor akselerometer G-Force dan data GPS. Output HP/KW merupakan hasil kalkulasi matematis terhadap massa kendaraan dan akselerasi, ditujukan sebagai parameter pembanding performa dan bukan merupakan hasil pengujian laboratorium mesin."
+            android:textColor="@color/text_gray" android:textSize="11sp" android:layout_marginTop="20dp" android:gravity="center" android:lineSpacingExtra="2dp"/>
+
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="10dp" android:gravity="center" android:orientation="horizontal">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@mipmap/ic_launcher" android:alpha="0.6"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" dev by penyu" android:textColor="@color/text_gray" android:textSize="10sp" android:alpha="0.6"/>
         </LinearLayout>
 
     </LinearLayout>

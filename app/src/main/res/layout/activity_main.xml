@@ -44,6 +44,8 @@
             android:text="dev by Penyu 🐢" android:textColor="@color/racing_cyan" android:textSize="12sp"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="© 2026 TUKU WEDEDED" android:textColor="@color/text_gray" android:textSize="10sp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="ver 22/03/26-1.0" android:textColor="@color/text_gray" android:textSize="8sp" android:layout_marginTop="2dp" android:alpha="0.5"/>
     </LinearLayout>
 
 </RelativeLayout>

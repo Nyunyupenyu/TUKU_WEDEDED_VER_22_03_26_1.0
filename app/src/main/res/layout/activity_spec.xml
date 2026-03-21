@@ -9,8 +9,11 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="ENGINE SPECIFICATION" android:textColor="@color/racing_yellow" android:textStyle="bold" android:textSize="20sp"/>
 
+            <EditText android:id="@+id/etVehicleName" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Nama Kendaraan" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="text" android:layout_marginTop="10dp"/>
+
             <EditText android:id="@+id/etBore" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:hint="Bore (mm)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="numberDecimal" android:layout_marginTop="10dp"/>
+                android:hint="Bore (mm)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="numberDecimal" android:layout_marginTop="5dp"/>
             <EditText android:id="@+id/etStroke" android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:hint="Stroke (mm)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/text_gray" android:inputType="numberDecimal"/>
 
@@ -61,6 +64,16 @@
                 <Button android:id="@+id/btnHistory" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                     android:text="HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginStart="5dp"/>
             </LinearLayout>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Modul kalkulasi teknis untuk menghitung kapasitas mesin (CC) dan rasio kompresi statis secara akurat, serta berfungsi sebagai dokumentasi spesifikasi komponen elektronik dan catatan modifikasi kendaraan Anda."
+                android:textColor="@color/text_gray" android:textSize="11sp" android:layout_marginTop="30dp" android:gravity="center" android:lineSpacingExtra="2dp"/>
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="20dp" android:gravity="center" android:orientation="horizontal">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@mipmap/ic_launcher" android:alpha="0.6"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" dev by penyu" android:textColor="@color/text_gray" android:textSize="10sp" android:alpha="0.6"/>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

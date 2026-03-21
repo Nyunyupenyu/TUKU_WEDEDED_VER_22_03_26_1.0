@@ -113,6 +113,15 @@
                     android:text="HISTORY" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginStart="5dp"/>
             </LinearLayout>
 
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="JJS (Jalan-Jalan Sore) merupakan instrumen pelacakan harian (daily tracker) yang dirancang untuk mendokumentasikan rincian pengeluaran operasional perjalanan Anda, mencakup estimasi konsumsi bahan bakar, biaya retribusi parkir, hingga pencatatan logistik belanja secara sistematis."
+                android:textColor="@color/text_gray" android:textSize="11sp" android:layout_marginTop="30dp" android:gravity="center" android:lineSpacingExtra="2dp"/>
+
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="10dp" android:gravity="center" android:orientation="horizontal">
+                <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@mipmap/ic_launcher" android:alpha="0.6"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" dev by penyu" android:textColor="@color/text_gray" android:textSize="10sp" android:alpha="0.6"/>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

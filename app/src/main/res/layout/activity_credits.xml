@@ -42,6 +42,15 @@
                 android:text="Aplikasi ini dibuat oleh sekumpulan anak muda yang hobi automotive dan ngopi, karena suka nongkrong di TUKU makanya dinamain TUKU WEDEDED, aplikasi ini tidak ada sangkut pautnya sama TUKU dari MAKA GROUP, nantinya aplikasi ini akan berubah nama."
                 android:textColor="@color/text_gray" android:textSize="12sp" android:gravity="center" android:lineSpacingExtra="2dp" android:padding="10dp"/>
 
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="JUMAT SORE TUKU FRENG" android:textColor="@color/racing_yellow" android:textStyle="bold" android:layout_marginTop="20dp" android:textSize="14sp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="&lt;3 Andin" android:textColor="@color/racing_red" android:textStyle="italic" android:layout_marginTop="5dp" android:textSize="14sp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ver 22/03/26-1.0" android:textColor="@color/text_gray" android:textSize="12sp" android:layout_marginTop="20dp" android:alpha="0.7"/>
+
         </LinearLayout>
     </ScrollView>
 

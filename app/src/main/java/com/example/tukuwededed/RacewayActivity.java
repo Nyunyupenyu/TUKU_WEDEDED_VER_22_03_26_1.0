@@ -23,7 +23,6 @@ public class RacewayActivity extends AppCompatActivity implements LocationListen
     private long startTime = 0;
     private SharedPreferences prefs;
     
-    // Checkpoint flags
     private boolean cp100 = false, cp200 = false, cp500 = false, cp1km = false;
 
     @Override
@@ -42,13 +41,13 @@ public class RacewayActivity extends AppCompatActivity implements LocationListen
         findViewById(R.id.btnHistory).setOnClickListener(v -> showHistory());
         
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-        findViewById(R.id.btnHome).setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
+        findViewById(R.id.btnHome).setOnClickListener(v -> finish());
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        checkLocationPermission();
+    }
+
+    private void checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, this);
         } else {
@@ -74,7 +73,6 @@ public class RacewayActivity extends AppCompatActivity implements LocationListen
         float speedKmh = (float) (location.getSpeed() * 3.6);
         tvSpeed.setText(String.format(Locale.getDefault(), "%.0f", speedKmh));
         
-        // AUTO RECORD FEATURE
         if (!isTracking && speedKmh > 5.0f) {
             startRecording();
             tvLog.append("\n[AUTO-RECORD ACTIVATED]");
@@ -98,15 +96,19 @@ public class RacewayActivity extends AppCompatActivity implements LocationListen
     }
 
     private void checkCheckpoint(float dist) {
-        double time = (System.currentTimeMillis() - startTime) / 1000.0;
-        if (dist >= 100 && !cp100) { cp100 = true; appendLog("100m", time); }
-        else if (dist >= 200 && !cp200) { cp200 = true; appendLog("200m", time); }
-        else if (dist >= 500 && !cp500) { cp500 = true; appendLog("500m", time); }
-        else if (dist >= 1000 && !cp1km) { cp1km = true; appendLog("1km", time); }
+        double timeS = (System.currentTimeMillis() - startTime) / 1000.0;
+        if (timeS <= 0) return;
+        
+        double avgKmh = (dist / timeS) * 3.6;
+
+        if (dist >= 100 && !cp100) { cp100 = true; appendLog("100m", timeS, avgKmh); }
+        else if (dist >= 200 && !cp200) { cp200 = true; appendLog("200m", timeS, avgKmh); }
+        else if (dist >= 500 && !cp500) { cp500 = true; appendLog("500m", timeS, avgKmh); }
+        else if (dist >= 1000 && !cp1km) { cp1km = true; appendLog("1km", timeS, avgKmh); }
     }
 
-    private void appendLog(String label, double time) {
-        String entry = String.format(Locale.getDefault(), "\n🚩 %s | %.2fs | Top: %.1f kmh", label, time, topSpeedSession);
+    private void appendLog(String label, double time, double avg) {
+        String entry = String.format(Locale.getDefault(), "\n🚩 %s | %.2fs | Avg: %.1f kmh", label, time, avg);
         tvLog.append(entry);
     }
 
@@ -114,6 +116,8 @@ public class RacewayActivity extends AppCompatActivity implements LocationListen
         if (!isTracking) return;
         isTracking = false;
         double fTime = (System.currentTimeMillis() - startTime) / 1000.0;
+        double fAvg = (totalDistance / fTime) * 3.6;
+        
         String finalDistance = totalDistance >= 1000 ? 
                 String.format(Locale.getDefault(), "%.2f km", totalDistance / 1000.0) : 
                 String.format(Locale.getDefault(), "%.1f m", totalDistance);
@@ -121,12 +125,13 @@ public class RacewayActivity extends AppCompatActivity implements LocationListen
         String result = "\n\n--- 🏁 FINAL RESULT ---" +
                 "\nJARAK : " + finalDistance +
                 "\nWAKTU : " + String.format(Locale.getDefault(), "%.2f s", fTime) +
-                "\nTOP   : " + String.format(Locale.getDefault(), "%.1f km/h", topSpeedSession);
+                "\nTOP   : " + String.format(Locale.getDefault(), "%.1f km/h", topSpeedSession) +
+                "\nAVG   : " + String.format(Locale.getDefault(), "%.1f km/h", fAvg);
         
         tvLog.append(result);
 
         String history = prefs.getString("history", "");
-        String newEntry = String.format(Locale.getDefault(), "\n• Dist: %s | Time: %.2fs | Top: %.1f km/h", finalDistance, fTime, topSpeedSession);
+        String newEntry = String.format(Locale.getDefault(), "\n• Dist: %s | Time: %.2fs | Avg: %.1f kmh", finalDistance, fTime, fAvg);
         prefs.edit().putString("history", history + newEntry).apply();
     }
 

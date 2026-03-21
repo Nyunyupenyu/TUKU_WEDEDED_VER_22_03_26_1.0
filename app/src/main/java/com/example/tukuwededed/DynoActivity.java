@@ -20,7 +20,7 @@ public class DynoActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private LocationManager locationManager;
-    private TextView tvLiveG, tvLiveKmh, tvMaxPower;
+    private TextView tvLiveG, tvLiveKmh, tvMaxPower, tvGpsStatus;
     private DynoView dynoGraph;
     
     private boolean isRunning = false;
@@ -38,6 +38,7 @@ public class DynoActivity extends AppCompatActivity implements SensorEventListen
         tvLiveG = findViewById(R.id.tvLiveG);
         tvLiveKmh = findViewById(R.id.tvLiveKmh);
         tvMaxPower = findViewById(R.id.tvMaxPower);
+        tvGpsStatus = findViewById(R.id.tvGpsStatus);
         dynoGraph = findViewById(R.id.dynoGraph);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -52,7 +53,13 @@ public class DynoActivity extends AppCompatActivity implements SensorEventListen
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
         findViewById(R.id.btnHome).setOnClickListener(v -> finish());
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        checkLocationPermission();
+    }
+
+    private void checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, this);
         }
     }
@@ -76,13 +83,10 @@ public class DynoActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         if (!isRunning) return;
         
-        // Acceleration on Y axis (assuming phone is mounted vertically)
         float accelY = event.values[1]; 
         float gForce = accelY / 9.81f;
         tvLiveG.setText(String.format(Locale.getDefault(), "G-Force: %.2f", gForce));
 
-        // Simplified Power Estimation: P = m * a * v
-        // Using a constant weight (motor + rider) approx 200kg for relative comparison
         float estimatedPowerKw = (float) (200 * (accelY) * (currentSpeedKmh / 3.6) / 1000.0);
         if (estimatedPowerKw < 0) estimatedPowerKw = 0;
         
@@ -100,6 +104,7 @@ public class DynoActivity extends AppCompatActivity implements SensorEventListen
     public void onLocationChanged(@NonNull Location location) {
         currentSpeedKmh = (float) (location.getSpeed() * 3.6);
         tvLiveKmh.setText(String.format(Locale.getDefault(), "%.0f KM/H", currentSpeedKmh));
+        tvGpsStatus.setText(String.format(Locale.getDefault(), "GPS Active (Acc: %.1fm)", location.getAccuracy()));
     }
 
     private void saveDynoData() {
@@ -119,6 +124,6 @@ public class DynoActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override public void onAccuracyChanged(Sensor sensor, int accuracy) {}
-    @Override public void onProviderDisabled(@NonNull String p) {}
-    @Override public void onProviderEnabled(@NonNull String p) {}
+    @Override public void onProviderDisabled(@NonNull String p) { tvGpsStatus.setText("GPS Disabled"); }
+    @Override public void onProviderEnabled(@NonNull String p) { tvGpsStatus.setText("GPS Enabled"); }
 }

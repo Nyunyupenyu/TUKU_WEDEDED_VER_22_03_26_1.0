@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
 
 public class SpecActivity extends AppCompatActivity {
-    private EditText etBore, etStroke, etVolumeKubah, etInjectorCC, etInjectorHole, etECU, etMapping, etNotes;
+    private EditText etVehicleName, etBore, etStroke, etVolumeKubah, etInjectorCC, etInjectorHole, etECU, etMapping, etNotes;
     private TextView tvHasilCC, tvHasilKompresi;
     private RadioGroup rgSilinder;
     private double currentCC = 0;
@@ -24,34 +24,42 @@ public class SpecActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("SpecPrefs", MODE_PRIVATE);
         initViews();
-        loadLastInput(); // Load current values
+        loadLastInput();
 
         TextWatcher specWatcher = new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
             @Override public void onTextChanged(CharSequence s, int i, int i1, int i2) { 
                 hitungCC(); 
                 hitungKompresi();
+                autoSave();
             }
             @Override public void afterTextChanged(Editable s) {}
         };
         
+        etVehicleName.addTextChangedListener(specWatcher);
         etBore.addTextChangedListener(specWatcher);
         etStroke.addTextChangedListener(specWatcher);
         etVolumeKubah.addTextChangedListener(specWatcher);
-        rgSilinder.setOnCheckedChangeListener((g, id) -> { hitungCC(); hitungKompresi(); });
+        etInjectorCC.addTextChangedListener(specWatcher);
+        etInjectorHole.addTextChangedListener(specWatcher);
+        etECU.addTextChangedListener(specWatcher);
+        etMapping.addTextChangedListener(specWatcher);
+        etNotes.addTextChangedListener(specWatcher);
+        
+        rgSilinder.setOnCheckedChangeListener((g, id) -> { 
+            hitungCC(); 
+            hitungKompresi();
+            autoSave();
+        });
 
         findViewById(R.id.btnSave).setOnClickListener(v -> saveToHistory());
         findViewById(R.id.btnHistory).setOnClickListener(v -> showHistory());
-
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-        findViewById(R.id.btnHome).setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
+        findViewById(R.id.btnHome).setOnClickListener(v -> finish());
     }
 
     private void initViews() {
+        etVehicleName = findViewById(R.id.etVehicleName);
         tvHasilCC = findViewById(R.id.tvHasilCC); 
         tvHasilKompresi = findViewById(R.id.tvHasilKompresi);
         rgSilinder = findViewById(R.id.rgSilinder);
@@ -60,6 +68,21 @@ public class SpecActivity extends AppCompatActivity {
         etInjectorCC = findViewById(R.id.etInjectorCC); etInjectorHole = findViewById(R.id.etInjectorHole);
         etECU = findViewById(R.id.etECU); etMapping = findViewById(R.id.etMapping);
         etNotes = findViewById(R.id.etNotes);
+    }
+
+    private void autoSave() {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("v_name", etVehicleName.getText().toString());
+        editor.putString("bore", etBore.getText().toString());
+        editor.putString("stroke", etStroke.getText().toString());
+        editor.putInt("cylId", rgSilinder.getCheckedRadioButtonId());
+        editor.putString("vKubah", etVolumeKubah.getText().toString());
+        editor.putString("injCC", etInjectorCC.getText().toString());
+        editor.putString("injHole", etInjectorHole.getText().toString());
+        editor.putString("ecu", etECU.getText().toString());
+        editor.putString("mapping", etMapping.getText().toString());
+        editor.putString("notes", etNotes.getText().toString());
+        editor.apply();
     }
 
     private void hitungCC() {
@@ -88,24 +111,15 @@ public class SpecActivity extends AppCompatActivity {
     }
 
     private void saveToHistory() {
-        SharedPreferences.Editor editor = prefs.edit();
-        // Save current input to reload later
-        editor.putString("bore", etBore.getText().toString());
-        editor.putString("stroke", etStroke.getText().toString());
-        editor.putInt("cylId", rgSilinder.getCheckedRadioButtonId());
-        editor.putString("vKubah", etVolumeKubah.getText().toString());
-        
-        // Add to history string
         String history = prefs.getString("history", "");
         String entry = String.format(Locale.getDefault(), 
-            "\n• %s | %.1f CC | CR %.1f:1 | ECU: %s", 
+            "\n• %s (%s) | %.1f CC | CR %.1f:1", 
+            etVehicleName.getText().toString().isEmpty() ? "Unit" : etVehicleName.getText().toString(),
             etNotes.getText().toString().isEmpty() ? "Spec" : etNotes.getText().toString(),
             currentCC, 
-            Double.parseDouble(tvHasilKompresi.getText().toString().replaceAll("[^0-9.]", "")),
-            etECU.getText().toString());
+            Double.parseDouble(tvHasilKompresi.getText().toString().replaceAll("[^0-9.]", "")));
         
-        editor.putString("history", history + entry);
-        editor.apply();
+        prefs.edit().putString("history", history + entry).apply();
         Toast.makeText(this, "Spec Saved to History!", Toast.LENGTH_SHORT).show();
     }
 
@@ -118,10 +132,16 @@ public class SpecActivity extends AppCompatActivity {
     }
 
     private void loadLastInput() {
+        etVehicleName.setText(prefs.getString("v_name", ""));
         etBore.setText(prefs.getString("bore", ""));
         etStroke.setText(prefs.getString("stroke", ""));
         rgSilinder.check(prefs.getInt("cylId", R.id.cyl1));
         etVolumeKubah.setText(prefs.getString("vKubah", ""));
+        etInjectorCC.setText(prefs.getString("injCC", ""));
+        etInjectorHole.setText(prefs.getString("injHole", ""));
+        etECU.setText(prefs.getString("ecu", ""));
+        etMapping.setText(prefs.getString("mapping", ""));
+        etNotes.setText(prefs.getString("notes", ""));
         hitungCC(); hitungKompresi();
     }
 }
