@@ -1,51 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/bg_racing" android:padding="20dp">
+    android:background="@drawable/bg_racing">
 
     <LinearLayout android:id="@+id/header" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:gravity="center" android:layout_marginTop="10dp">
-
+        android:orientation="vertical" android:gravity="center" android:layout_marginTop="20dp" android:layout_marginBottom="10dp">
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@mipmap/ic_launcher"
             android:scaleType="fitCenter"/>
-
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="TUKU WEDEDED" android:textColor="@color/racing_yellow" android:textSize="24sp" android:textStyle="bold" android:letterSpacing="0.1"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Ultimate Vehicle Management" android:textColor="@color/text_gray" android:textSize="12sp"/>
     </LinearLayout>
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
         android:layout_below="@id/header" android:layout_above="@+id/footer"
-        android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
-        android:scrollbars="none">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <Button android:id="@+id/btnGoSpec" android:layout_width="match_parent" android:layout_height="70dp"
-                android:text="ENGINE SPEC" android:backgroundTint="@color/card_surface" android:textColor="@color/text_white" android:layout_marginBottom="10dp"/>
-            <Button android:id="@+id/btnGoRaceway" android:layout_width="match_parent" android:layout_height="70dp"
-                android:text="RACEWAY (GPS)" android:backgroundTint="@color/racing_red" android:textColor="@color/text_white" android:layout_marginBottom="10dp"/>
-            <Button android:id="@+id/btnGoDyno" android:layout_width="match_parent" android:layout_height="70dp"
-                android:text="DYNO-KW (G-FORCE)" android:backgroundTint="#FF5722" android:textColor="@color/text_white" android:layout_marginBottom="10dp"/>
-            <Button android:id="@+id/btnGoService" android:layout_width="match_parent" android:layout_height="70dp"
-                android:text="SERVICE LOG" android:backgroundTint="@color/racing_green" android:textColor="#000" android:layout_marginBottom="10dp"/>
-            <Button android:id="@+id/btnGoFuel" android:layout_width="match_parent" android:layout_height="70dp"
-                android:text="KONSUMSI BBM" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:layout_marginBottom="10dp"/>
-            <Button android:id="@+id/btnGoJJS" android:layout_width="match_parent" android:layout_height="70dp"
-                android:text="JJS MODE" android:backgroundTint="@color/racing_cyan" android:textColor="#000" android:layout_marginBottom="10dp"/>
-            <Button android:id="@+id/btnGoCredits" android:layout_width="match_parent" android:layout_height="70dp"
-                android:text="CREDITS" android:backgroundTint="@color/text_gray" android:textColor="@color/text_white"/>
-        </LinearLayout>
+        android:scrollbars="none" android:paddingHorizontal="15dp">
+
+        <GridLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:columnCount="2" android:alignmentMode="alignMargins"
+            android:columnOrderPreserved="false" android:paddingBottom="20dp">
+
+            <!-- Row 1 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardVehicle" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_directions" app:tint="@color/racing_cyan"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="YOUR VEHICLE" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDriver" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_myplaces" app:tint="@color/racing_green"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DRIVER INFO" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Row 2 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSpec" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_manage" app:tint="@color/racing_yellow"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ENGINE SPEC" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardRaceway" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_compass" app:tint="@color/racing_red"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="RACEWAY" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Row 3 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardService" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_agenda" app:tint="@color/racing_green"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SERVICE LOG" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardFuel" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_send" app:tint="@color/racing_yellow"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="FUEL LOG" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Row 4 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardJjs" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_view" app:tint="@color/racing_cyan"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="JJS MODE" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCredits" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_info_details" app:tint="@color/text_gray"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CREDITS" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Row 5 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardRTMC" android:layout_width="0dp" android:layout_height="120dp"
+                app:cardBackgroundColor="@color/card_surface"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="15dp" app:cardElevation="4dp" android:layout_margin="8dp"
+                android:clickable="true" android:focusable="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
+                    <ImageView android:layout_width="40dp" android:layout_height="40dp" android:src="@android:drawable/ic_menu_camera" app:tint="@color/racing_red"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="RTMC BOGOR" android:textColor="@color/text_white" android:textStyle="bold" android:layout_marginTop="8dp" android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </GridLayout>
     </ScrollView>
 
     <LinearLayout android:id="@+id/footer" android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" android:gravity="center" android:orientation="vertical">
+        android:layout_alignParentBottom="true" android:gravity="center" android:orientation="vertical" android:padding="10dp" android:background="#CC020617">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="dev by Penyu 🐢" android:textColor="@color/racing_cyan" android:textSize="12sp"/>
+            android:text="dev by Penyu 🐢" android:textColor="@color/racing_cyan" android:textSize="10sp"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="© 2026 TUKU WEDEDED" android:textColor="@color/text_gray" android:textSize="10sp"/>
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="ver 22/03/26-1.0" android:textColor="@color/text_gray" android:textSize="8sp" android:layout_marginTop="2dp" android:alpha="0.5"/>
+            android:text="© 2026 TUKU WEDEDED • Ver 1.5" android:textColor="@color/text_gray" android:textSize="9sp"/>
     </LinearLayout>
 
 </RelativeLayout>

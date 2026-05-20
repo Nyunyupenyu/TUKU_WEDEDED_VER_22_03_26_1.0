@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_carbon_black">
+
+    <ScrollView
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_above="@+id/navBottom">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="20dp">
+
+        <TextView android:id="@+id/tvFormTitle" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Vehicle Details" android:textColor="@color/racing_cyan" android:textSize="22sp" android:textStyle="bold" android:layout_marginBottom="20dp"/>
+
+        <!-- Basic Info -->
+        <EditText android:id="@+id/etName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nama Kendaraan" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etType" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Jenis Kendaraan (e.g. Matic, Sport)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etPlate" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nomor Plat Motor" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etRegisteredName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nama Terdaftar (STNK)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etFrameNum" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nomor Rangka" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etEngineNum" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nomor Mesin" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Engine Specs" android:textColor="@color/racing_yellow" android:layout_marginTop="20dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <EditText android:id="@+id/etBore" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="Bore (mm)" android:inputType="numberDecimal" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_yellow"/>
+            <EditText android:id="@+id/etStroke" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="Stroke (mm)" android:inputType="numberDecimal" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_yellow"/>
+            <TextView android:id="@+id/tvAutoCC" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0.0 CC" android:textColor="@color/racing_green" android:layout_gravity="center_vertical" android:layout_marginStart="10dp" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Injector Holes" android:textColor="@color/text_gray" android:layout_marginTop="10dp"/>
+        <Spinner android:id="@+id/spnHoles" android:layout_width="match_parent" android:layout_height="wrap_content" android:backgroundTint="@color/text_white"/>
+        <EditText android:id="@+id/etInjectorCC" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Injector CC (Manual)" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <EditText android:id="@+id/etCompression" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Kompresi (Buret)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etHead" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Head Cylinder" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etNoken" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Noken AS" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etKlep" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Per Klep" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etTB" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Throttle Body" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etPerKopling" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Per Kopling" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etECU" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="ECU" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Brakes &amp; Handling" android:textColor="@color/racing_yellow" android:layout_marginTop="20dp"/>
+        <EditText android:id="@+id/etMasterDepan" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Master Rem Depan" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etMasterBelakang" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Master Rem Belakang" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etKaliperDepan" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Kaliper Rem Depan" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etKaliperBelakang" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Kaliper Rem Belakang" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etSelangRem" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Selang Rem" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etHandleKopling" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Handle Kopling" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tires" android:textColor="@color/racing_yellow" android:layout_marginTop="20dp"/>
+        <EditText android:id="@+id/etBanDepan" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Ban Depan" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etBanBelakang" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Ban Belakang" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Others" android:textColor="@color/racing_yellow" android:layout_marginTop="20dp"/>
+        <EditText android:id="@+id/etAdditional" android:layout_width="match_parent" android:layout_height="100dp" android:hint="Additional Specs / More Info" android:gravity="top" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etPajak" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Pajak Kendaraan (e.g. 5 Tahunan)" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etTglPajak" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tanggal Bayar Pajak" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <Button android:id="@+id/btnSave" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="30dp"
+            android:text="SAVE VEHICLE" android:backgroundTint="@color/racing_green" android:textColor="#000" android:textStyle="bold"/>
+
+        <Button android:id="@+id/btnDelete" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp"
+            android:text="DELETE VEHICLE" android:backgroundTint="@color/racing_red" android:textColor="#FFF" android:visibility="gone"/>
+
+    </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/navBottom" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:background="#CC020617" android:padding="10dp">
+        <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="BACK" style="@style/Widget.MaterialComponents.Button.TextButton" android:textColor="@color/text_gray"/>
+        <Button android:id="@+id/btnHome" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="HOME PAGE" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:textStyle="bold"/>
+    </LinearLayout>
+</RelativeLayout>

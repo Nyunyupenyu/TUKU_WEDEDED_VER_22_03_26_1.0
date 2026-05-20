@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,29 +89,72 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     private void saveToHistory() {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("last_oli", etLastOli.getText().toString());
-        editor.putString("date_oli", etDateOli.getText().toString());
-        editor.putString("last_busi", etLastBusi.getText().toString());
-        editor.putString("last_filter", etLastFilter.getText().toString());
-        editor.putString("last_cleaner", etLastCleaner.getText().toString());
+        try {
+            JSONArray historyArray = new JSONArray(prefs.getString("history_json", "[]"));
+            JSONObject entry = new JSONObject();
+            entry.put("last_oli", etLastOli.getText().toString());
+            entry.put("date_oli", etDateOli.getText().toString());
+            entry.put("last_busi", etLastBusi.getText().toString());
+            entry.put("last_filter", etLastFilter.getText().toString());
+            entry.put("last_cleaner", etLastCleaner.getText().toString());
+            entry.put("timestamp", new java.util.Date().toString());
 
-        String history = prefs.getString("history", "");
-        String entry = String.format("\n• [%s] Oli: %s km | Busi: %s | Filter: %s | Cleaner: %s", 
-                etDateOli.getText().toString(), etLastOli.getText().toString(), etLastBusi.getText().toString(), 
-                etLastFilter.getText().toString(), etLastCleaner.getText().toString());
-        editor.putString("history", history + entry);
-        
-        editor.apply();
-        Toast.makeText(this, "Service Log Saved!", Toast.LENGTH_SHORT).show();
+            historyArray.put(entry);
+            
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("last_oli", etLastOli.getText().toString());
+            editor.putString("date_oli", etDateOli.getText().toString());
+            editor.putString("last_busi", etLastBusi.getText().toString());
+            editor.putString("last_filter", etLastFilter.getText().toString());
+            editor.putString("last_cleaner", etLastCleaner.getText().toString());
+            editor.putString("history_json", historyArray.toString());
+            editor.apply();
+            
+            Toast.makeText(this, "Service Log Saved to History!", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error saving history", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showHistory() {
-        String history = prefs.getString("history", "Belum ada history service.");
-        new AlertDialog.Builder(this).setTitle("History Service").setMessage(history)
-                .setPositiveButton("OK", null)
-                .setNeutralButton("CLEAR", (d, w) -> prefs.edit().remove("history").apply())
-                .show();
+        try {
+            JSONArray historyArray = new JSONArray(prefs.getString("history_json", "[]"));
+            if (historyArray.length() == 0) {
+                Toast.makeText(this, "Belum ada history service.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String[] items = new String[historyArray.length()];
+            for (int i = 0; i < historyArray.length(); i++) {
+                JSONObject obj = historyArray.getJSONObject(i);
+                items[i] = "Service Tgl: " + obj.optString("date_oli", "-") + " | Oli: " + obj.optString("last_oli", "0") + "km";
+            }
+
+            new AlertDialog.Builder(this)
+                    .setTitle("History Service (Klik untuk load)")
+                    .setItems(items, (dialog, which) -> {
+                        try {
+                            loadFromJSONObject(historyArray.getJSONObject(which));
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Error loading history item", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setPositiveButton("OK", null)
+                    .setNeutralButton("CLEAR", (d, w) -> prefs.edit().remove("history_json").apply())
+                    .show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFromJSONObject(JSONObject obj) {
+        etLastOli.setText(obj.optString("last_oli", ""));
+        etDateOli.setText(obj.optString("date_oli", ""));
+        etLastBusi.setText(obj.optString("last_busi", ""));
+        etLastFilter.setText(obj.optString("last_filter", ""));
+        etLastCleaner.setText(obj.optString("last_cleaner", ""));
+        updateEstimasi();
+        Toast.makeText(this, "Data Service Loaded!", Toast.LENGTH_SHORT).show();
     }
 
     private void loadHistory() {

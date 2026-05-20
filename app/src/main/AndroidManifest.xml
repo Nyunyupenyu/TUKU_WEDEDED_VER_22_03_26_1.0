@@ -35,7 +35,9 @@
         <activity android:name=".ServiceActivity" android:screenOrientation="portrait" />
         <activity android:name=".JjsActivity" android:screenOrientation="portrait" />
         <activity android:name=".FuelActivity" android:screenOrientation="portrait" />
-        <activity android:name=".DynoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".VehicleActivity" android:screenOrientation="portrait" />
+        <activity android:name=".VehicleFormActivity" android:screenOrientation="portrait" />
+        <activity android:name=".DriverActivity" android:screenOrientation="portrait" />
         <activity android:name=".CreditsActivity" android:screenOrientation="portrait" />
 
     </application>

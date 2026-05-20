@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_carbon_black">
+
+    <ScrollView
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_above="@+id/navBottom">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="20dp">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Driver Information" android:textColor="@color/racing_cyan" android:textSize="22sp" android:textStyle="bold" android:layout_marginBottom="20dp"/>
+
+        <EditText android:id="@+id/etDriverName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nama Lengkap" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etBirthDate" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tanggal Lahir" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Golongan Darah" android:textColor="@color/text_gray" android:layout_marginTop="10dp"/>
+        <Spinner android:id="@+id/spnBloodType" android:layout_width="match_parent" android:layout_height="wrap_content" android:backgroundTint="@color/text_white"/>
+
+        <EditText android:id="@+id/etDomisili" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Domisili" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Jenis Kelamin" android:textColor="@color/text_gray" android:layout_marginTop="10dp"/>
+        <RadioGroup android:id="@+id/rgGender" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <RadioButton android:id="@+id/rbMale" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Laki-laki" android:textColor="@color/text_white" android:buttonTint="@color/racing_cyan"/>
+            <RadioButton android:id="@+id/rbFemale" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perempuan" android:textColor="@color/text_white" android:buttonTint="@color/racing_cyan" android:layout_marginStart="20dp"/>
+        </RadioGroup>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Licenses &amp; Cards" android:textColor="@color/racing_yellow" android:layout_marginTop="20dp"/>
+        <EditText android:id="@+id/etSimA" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Masa Berlaku SIM A" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etSimC" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Masa Berlaku SIM C" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+        <EditText android:id="@+id/etKta" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Masa Berlaku KTA lainnya" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Physical Data" android:textColor="@color/racing_yellow" android:layout_marginTop="20dp"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <EditText android:id="@+id/etHeight" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="Tinggi (cm)" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan"/>
+            <EditText android:id="@+id/etWeight" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="Berat (kg)" android:inputType="number" android:textColor="@color/text_white" android:textColorHint="@color/text_gray" android:backgroundTint="@color/racing_cyan" android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+        <Button android:id="@+id/btnSaveDriver" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="30dp"
+            android:text="SAVE DRIVER INFO" android:backgroundTint="@color/racing_green" android:textColor="#000" android:textStyle="bold"/>
+
+    </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:id="@+id/navBottom" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:background="#CC020617" android:padding="10dp">
+        <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="BACK" style="@style/Widget.MaterialComponents.Button.TextButton" android:textColor="@color/text_gray"/>
+        <Button android:id="@+id/btnHome" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="HOME PAGE" android:backgroundTint="@color/racing_yellow" android:textColor="#000" android:textStyle="bold"/>
+    </LinearLayout>
+</RelativeLayout>

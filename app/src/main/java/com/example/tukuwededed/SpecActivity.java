@@ -8,6 +8,10 @@ import android.text.TextWatcher;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class SpecActivity extends AppCompatActivity {
@@ -111,24 +115,74 @@ public class SpecActivity extends AppCompatActivity {
     }
 
     private void saveToHistory() {
-        String history = prefs.getString("history", "");
-        String entry = String.format(Locale.getDefault(), 
-            "\n• %s (%s) | %.1f CC | CR %.1f:1", 
-            etVehicleName.getText().toString().isEmpty() ? "Unit" : etVehicleName.getText().toString(),
-            etNotes.getText().toString().isEmpty() ? "Spec" : etNotes.getText().toString(),
-            currentCC, 
-            Double.parseDouble(tvHasilKompresi.getText().toString().replaceAll("[^0-9.]", "")));
-        
-        prefs.edit().putString("history", history + entry).apply();
-        Toast.makeText(this, "Spec Saved to History!", Toast.LENGTH_SHORT).show();
+        try {
+            JSONArray historyArray = new JSONArray(prefs.getString("history_json", "[]"));
+            JSONObject entry = new JSONObject();
+            entry.put("v_name", etVehicleName.getText().toString());
+            entry.put("bore", etBore.getText().toString());
+            entry.put("stroke", etStroke.getText().toString());
+            entry.put("cylId", rgSilinder.getCheckedRadioButtonId());
+            entry.put("vKubah", etVolumeKubah.getText().toString());
+            entry.put("injCC", etInjectorCC.getText().toString());
+            entry.put("injHole", etInjectorHole.getText().toString());
+            entry.put("ecu", etECU.getText().toString());
+            entry.put("mapping", etMapping.getText().toString());
+            entry.put("notes", etNotes.getText().toString());
+            entry.put("cc", tvHasilCC.getText().toString());
+            entry.put("timestamp", new java.util.Date().toString());
+
+            historyArray.put(entry);
+            prefs.edit().putString("history_json", historyArray.toString()).apply();
+            Toast.makeText(this, "Spec Saved to History!", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error saving history", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showHistory() {
-        String history = prefs.getString("history", "Belum ada history.");
-        new AlertDialog.Builder(this).setTitle("History Engine Specs").setMessage(history)
-                .setPositiveButton("OK", null)
-                .setNeutralButton("CLEAR", (d, w) -> prefs.edit().remove("history").apply())
-                .show();
+        try {
+            JSONArray historyArray = new JSONArray(prefs.getString("history_json", "[]"));
+            if (historyArray.length() == 0) {
+                Toast.makeText(this, "Belum ada history.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String[] items = new String[historyArray.length()];
+            for (int i = 0; i < historyArray.length(); i++) {
+                JSONObject obj = historyArray.getJSONObject(i);
+                items[i] = obj.optString("v_name", "Unit") + " | " + obj.optString("cc", "0 CC");
+            }
+
+            new AlertDialog.Builder(this)
+                    .setTitle("History Engine Specs (Klik untuk load)")
+                    .setItems(items, (dialog, which) -> {
+                        try {
+                            loadFromJSONObject(historyArray.getJSONObject(which));
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Error loading history item", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setPositiveButton("OK", null)
+                    .setNeutralButton("CLEAR", (d, w) -> prefs.edit().remove("history_json").apply())
+                    .show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFromJSONObject(JSONObject obj) {
+        etVehicleName.setText(obj.optString("v_name", ""));
+        etBore.setText(obj.optString("bore", ""));
+        etStroke.setText(obj.optString("stroke", ""));
+        rgSilinder.check(obj.optInt("cylId", R.id.cyl1));
+        etVolumeKubah.setText(obj.optString("vKubah", ""));
+        etInjectorCC.setText(obj.optString("injCC", ""));
+        etInjectorHole.setText(obj.optString("injHole", ""));
+        etECU.setText(obj.optString("ecu", ""));
+        etMapping.setText(obj.optString("mapping", ""));
+        etNotes.setText(obj.optString("notes", ""));
+        hitungCC(); hitungKompresi();
+        Toast.makeText(this, "Data Loaded!", Toast.LENGTH_SHORT).show();
     }
 
     private void loadLastInput() {
